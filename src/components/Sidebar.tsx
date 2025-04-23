@@ -39,14 +39,14 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   return (
     <>
       <button 
-        className="fixed bottom-4 right-4 md:hidden z-50 bg-primary p-3 rounded-full shadow-lg text-white"
+        className="fixed bottom-4 right-4 md:hidden z-50 bg-primary p-3 rounded-full shadow-lg text-primary-foreground"
         onClick={toggleMobile}
       >
         {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       <div 
-        className={`bg-card text-card-foreground border-r border-border
+        className={`bg-background text-foreground border-r border-border
           fixed inset-0 z-40 md:relative md:translate-x-0
           transition-all duration-300 ease-in-out
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
