@@ -1,4 +1,5 @@
 
+import * as React from "react";
 import { ShoppingCart, Package, Users, TrendingUp, Plus, UserPlus } from "lucide-react";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { RecentSales } from "@/components/dashboard/RecentSales";

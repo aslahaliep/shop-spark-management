@@ -1,4 +1,5 @@
 
+import * as React from "react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Bell, Search, User } from "lucide-react";
