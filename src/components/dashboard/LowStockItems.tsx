@@ -7,6 +7,7 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Mock data for low stock items
 const lowStockItems = [
@@ -23,7 +24,7 @@ export function LowStockItems() {
         <h3 className="text-lg font-semibold">Low Stock Items</h3>
         <p className="text-muted-foreground text-sm">Products that need reordering soon</p>
       </div>
-      <div className="overflow-x-auto">
+      <ScrollArea className="h-[300px]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -46,7 +47,7 @@ export function LowStockItems() {
             ))}
           </TableBody>
         </Table>
-      </div>
+      </ScrollArea>
     </div>
   );
 }

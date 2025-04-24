@@ -7,6 +7,7 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Mock data for recent sales
 const recentSales = [
@@ -24,7 +25,7 @@ export function RecentSales() {
         <h3 className="text-lg font-semibold">Recent Sales</h3>
         <p className="text-muted-foreground text-sm">Latest transactions across your store</p>
       </div>
-      <div className="overflow-x-auto">
+      <ScrollArea className="h-[300px]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -59,7 +60,7 @@ export function RecentSales() {
             ))}
           </TableBody>
         </Table>
-      </div>
+      </ScrollArea>
     </div>
   );
 }

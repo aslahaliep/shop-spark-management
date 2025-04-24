@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { 
   Table, 
@@ -14,6 +13,7 @@ import { Search, ShoppingCart, Plus, Trash2, CreditCard, Printer } from "lucide-
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Mock data for available products
 const availableProducts = [
@@ -155,7 +155,7 @@ export default function Billing() {
       
       {/* Billing area */}
       <div className="space-y-4">
-        <Card className="p-4">
+        <Card className="p-4 bg-card border-border">
           <div className="mb-4">
             <h2 className="text-lg font-semibold mb-4">Customer Information</h2>
             <div className="space-y-3">
@@ -183,84 +183,86 @@ export default function Billing() {
           <h2 className="text-lg font-semibold mb-4">Current Bill</h2>
           
           {billingItems.length > 0 ? (
-            <div className="space-y-4">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Item</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead>Qty</TableHead>
-                    <TableHead>Total</TableHead>
-                    <TableHead></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {billingItems.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell className="text-sm">{item.name}</TableCell>
-                      <TableCell className="text-sm">₹{item.price.toFixed(2)}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            className="h-6 w-6 p-0" 
-                            onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
-                          >
-                            -
-                          </Button>
-                          <span className="mx-2 text-sm">{item.quantity}</span>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            className="h-6 w-6 p-0" 
-                            onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
-                          >
-                            +
-                          </Button>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-sm">₹{(item.price * item.quantity).toFixed(2)}</TableCell>
-                      <TableCell>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          className="h-6 w-6 p-0 text-red-500 hover:text-red-700 hover:bg-red-50" 
-                          onClick={() => handleRemoveItem(item.id)}
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
-                      </TableCell>
+            <ScrollArea className="h-[400px]">
+              <div className="space-y-4">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Item</TableHead>
+                      <TableHead>Price</TableHead>
+                      <TableHead>Qty</TableHead>
+                      <TableHead>Total</TableHead>
+                      <TableHead></TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              
-              <div className="space-y-2 pt-4">
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Subtotal</span>
-                  <span>₹{subtotal.toFixed(2)}</span>
+                  </TableHeader>
+                  <TableBody>
+                    {billingItems.map((item) => (
+                      <TableRow key={item.id}>
+                        <TableCell className="text-sm">{item.name}</TableCell>
+                        <TableCell className="text-sm">₹{item.price.toFixed(2)}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              className="h-6 w-6 p-0" 
+                              onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                            >
+                              -
+                            </Button>
+                            <span className="mx-2 text-sm">{item.quantity}</span>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              className="h-6 w-6 p-0" 
+                              onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                            >
+                              +
+                            </Button>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sm">₹{(item.price * item.quantity).toFixed(2)}</TableCell>
+                        <TableCell>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            className="h-6 w-6 p-0 text-red-500 hover:text-red-700 hover:bg-red-50" 
+                            onClick={() => handleRemoveItem(item.id)}
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                
+                <div className="space-y-2 pt-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Subtotal</span>
+                    <span>₹{subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Tax (18% GST)</span>
+                    <span>₹{tax.toFixed(2)}</span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between font-semibold">
+                    <span>Total</span>
+                    <span>₹{total.toFixed(2)}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Tax (18% GST)</span>
-                  <span>₹{tax.toFixed(2)}</span>
-                </div>
-                <Separator className="my-2" />
-                <div className="flex justify-between font-semibold">
-                  <span>Total</span>
-                  <span>₹{total.toFixed(2)}</span>
+                
+                <div className="space-y-2 pt-4">
+                  <Button className="w-full" onClick={handleCheckout}>
+                    <CreditCard className="h-4 w-4 mr-2" /> Proceed to Payment
+                  </Button>
+                  <Button variant="outline" className="w-full" onClick={() => toast({ title: "Print", description: "This would print the bill in a complete implementation" })}>
+                    <Printer className="h-4 w-4 mr-2" /> Print Bill
+                  </Button>
                 </div>
               </div>
-              
-              <div className="space-y-2 pt-4">
-                <Button className="w-full" onClick={handleCheckout}>
-                  <CreditCard className="h-4 w-4 mr-2" /> Proceed to Payment
-                </Button>
-                <Button variant="outline" className="w-full" onClick={() => toast({ title: "Print", description: "This would print the bill in a complete implementation" })}>
-                  <Printer className="h-4 w-4 mr-2" /> Print Bill
-                </Button>
-              </div>
-            </div>
+            </ScrollArea>
           ) : (
             <div className="py-8 text-center text-muted-foreground">
               <ShoppingCart className="h-10 w-10 mx-auto mb-2 opacity-20" />
