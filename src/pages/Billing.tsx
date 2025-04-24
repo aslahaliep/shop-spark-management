@@ -115,17 +115,17 @@ export default function Billing() {
           <h1 className="text-2xl font-bold flex items-center">
             <ShoppingCart className="mr-2 h-6 w-6" /> New Transaction
           </h1>
-          <p className="text-gray-500">Create a new sale transaction</p>
+          <p className="text-muted-foreground">Create a new sale transaction</p>
         </div>
         
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="p-4 border-b border-gray-100">
+        <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
+          <div className="p-4 border-b border-border">
             <div className="relative w-full">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search products by name or scan barcode..."
-                className="w-full pl-9 bg-gray-50 border-gray-200"
+                className="w-full pl-9 bg-muted/40 border-input"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -133,12 +133,12 @@ export default function Billing() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-            {filteredProducts.map((product) => (
+            {availableProducts.map((product) => (
               <Card key={product.id} className="p-4 cursor-pointer hover:border-primary transition-colors">
                 <div className="flex flex-col h-full justify-between">
                   <div>
                     <h3 className="font-medium">{product.name}</h3>
-                    <p className="text-sm text-gray-500">Stock: {product.stock}</p>
+                    <p className="text-sm text-muted-foreground">Stock: {product.stock}</p>
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <span className="font-semibold">₹{product.price.toFixed(2)}</span>
@@ -262,7 +262,7 @@ export default function Billing() {
               </div>
             </div>
           ) : (
-            <div className="py-8 text-center text-gray-500">
+            <div className="py-8 text-center text-muted-foreground">
               <ShoppingCart className="h-10 w-10 mx-auto mb-2 opacity-20" />
               <p>No items in the bill yet</p>
               <p className="text-sm">Search and add products from the left</p>

@@ -18,10 +18,10 @@ const lowStockItems = [
 
 export function LowStockItems() {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-      <div className="p-6 border-b border-gray-100">
+    <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="p-6 border-b border-border">
         <h3 className="text-lg font-semibold">Low Stock Items</h3>
-        <p className="text-gray-500 text-sm">Products that need reordering soon</p>
+        <p className="text-muted-foreground text-sm">Products that need reordering soon</p>
       </div>
       <div className="overflow-x-auto">
         <Table>
@@ -40,7 +40,7 @@ export function LowStockItems() {
                 <TableCell className="font-medium">{item.id}</TableCell>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{item.sku}</TableCell>
-                <TableCell className="text-red-600 font-medium">{item.inStock}</TableCell>
+                <TableCell className="text-destructive font-medium">{item.inStock}</TableCell>
                 <TableCell>{item.minStock}</TableCell>
               </TableRow>
             ))}
