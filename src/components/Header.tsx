@@ -42,7 +42,8 @@ export function Header({ children }: { children?: React.ReactNode }) {
       title: "Logged out",
       description: "You have been successfully logged out",
     });
-    // For demonstration purposes, this would handle logout functionality
+    // Navigate to the login page after logout
+    navigate("/login");
   };
 
   return (
