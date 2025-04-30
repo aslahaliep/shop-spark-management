@@ -9,7 +9,9 @@ import { Layout } from "./components/Layout";
 import Index from "./pages/Index";
 import Billing from "./pages/Billing";
 import Inventory from "./pages/Inventory";
+import ProductAdd from "./pages/ProductAdd";
 import Customers from "./pages/Customers";
+import CustomerAdd from "./pages/CustomerAdd";
 import Staff from "./pages/Staff";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
@@ -31,7 +33,9 @@ const App = () => (
           <Route path="/" element={<Layout><Index /></Layout>} />
           <Route path="/billing" element={<Layout><Billing /></Layout>} />
           <Route path="/inventory" element={<Layout><Inventory /></Layout>} />
+          <Route path="/inventory/add" element={<Layout><ProductAdd /></Layout>} />
           <Route path="/customers" element={<Layout><Customers /></Layout>} />
+          <Route path="/customers/add" element={<Layout><CustomerAdd /></Layout>} />
           <Route path="/staff" element={<Layout><Staff /></Layout>} />
           <Route path="/reports" element={<Layout><Reports /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
