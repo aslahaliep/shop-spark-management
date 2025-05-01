@@ -1,5 +1,5 @@
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Table, 
   TableBody, 
@@ -80,6 +80,7 @@ const customers = [
 export default function Customers() {
   const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   // Filter customers based on search term
   const filteredCustomers = searchTerm 
@@ -91,24 +92,15 @@ export default function Customers() {
     : customers;
   
   const handleAddCustomer = () => {
-    toast({
-      title: "Add Customer",
-      description: "This would open a customer creation form in a complete implementation.",
-    });
+    navigate("/customers/add");
   };
 
   const handleViewCustomer = (customerId: string) => {
-    toast({
-      title: "View Customer",
-      description: `Viewing details for customer ${customerId}`,
-    });
+    navigate(`/customers/view/${customerId}`);
   };
   
   const handleEditCustomer = (customerId: string) => {
-    toast({
-      title: "Edit Customer",
-      description: `Editing customer ${customerId}`,
-    });
+    navigate(`/customers/edit/${customerId}`);
   };
   
   return (

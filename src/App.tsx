@@ -12,6 +12,8 @@ import Inventory from "./pages/Inventory";
 import ProductAdd from "./pages/ProductAdd";
 import Customers from "./pages/Customers";
 import CustomerAdd from "./pages/CustomerAdd";
+import CustomerView from "./pages/CustomerView";
+import CustomerEdit from "./pages/CustomerEdit";
 import Staff from "./pages/Staff";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
@@ -37,6 +39,8 @@ const App = () => (
           <Route path="/inventory/add" element={<Layout><ProductAdd /></Layout>} />
           <Route path="/customers" element={<Layout><Customers /></Layout>} />
           <Route path="/customers/add" element={<Layout><CustomerAdd /></Layout>} />
+          <Route path="/customers/view/:id" element={<Layout><CustomerView /></Layout>} />
+          <Route path="/customers/edit/:id" element={<Layout><CustomerEdit /></Layout>} />
           <Route path="/staff" element={<Layout><Staff /></Layout>} />
           <Route path="/reports" element={<Layout><Reports /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
