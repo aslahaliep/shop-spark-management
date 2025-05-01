@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Table, 
   TableBody, 
@@ -12,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, UserCheck, Plus, Filter, Download, Mail, Phone, Edit, Eye, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import StaffFilterDialog, { StaffFilters } from "@/components/staff/StaffFilterDialog";
 
 // Mock data for staff members
 const staffMembers = [
@@ -64,22 +66,35 @@ const staffMembers = [
 
 export default function Staff() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterDialogOpen, setFilterDialogOpen] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<StaffFilters>({});
   const { toast } = useToast();
+  const navigate = useNavigate();
   
-  // Filter staff based on search term
-  const filteredStaff = searchTerm 
-    ? staffMembers.filter(member => 
-        member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  // Filter staff based on search term and active filters
+  const filteredStaff = staffMembers.filter(member => {
+    // Search filter
+    const matchesSearch = searchTerm 
+      ? member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         member.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
         member.email.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : staffMembers;
+      : true;
+    
+    // Role filter
+    const matchesRole = activeFilters.role
+      ? member.role === activeFilters.role
+      : true;
+    
+    // Status filter
+    const matchesStatus = activeFilters.status
+      ? member.status === activeFilters.status
+      : true;
+    
+    return matchesSearch && matchesRole && matchesStatus;
+  });
   
   const handleAddStaff = () => {
-    toast({
-      title: "Add Staff",
-      description: "This would open a staff creation form in a complete implementation.",
-    });
+    navigate("/staff/add");
   };
 
   const handleViewStaff = (staffId: string) => {
@@ -101,6 +116,27 @@ export default function Staff() {
       title: "Reset Password",
       description: `Password reset link has been sent to the staff member`,
     });
+  };
+  
+  const handleFilterApply = (filters: StaffFilters) => {
+    setActiveFilters(filters);
+    
+    // Show toast with applied filters for user feedback
+    const filterDescriptions = [];
+    if (filters.role) filterDescriptions.push(`Role: ${filters.role}`);
+    if (filters.status) filterDescriptions.push(`Status: ${filters.status}`);
+    
+    if (filterDescriptions.length > 0) {
+      toast({
+        title: "Filters Applied",
+        description: filterDescriptions.join(", "),
+      });
+    } else {
+      toast({
+        title: "Filters Reset",
+        description: "Showing all staff members",
+      });
+    }
   };
   
   return (
@@ -135,8 +171,14 @@ export default function Staff() {
             </div>
             
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => toast({ title: "Filter", description: "Filter dialog would appear here" })}>
-                <Filter className="h-4 w-4 mr-2" /> Filter
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => setFilterDialogOpen(true)}
+                className={activeFilters.role || activeFilters.status ? "bg-primary/10 text-primary border-primary/20" : ""}
+              >
+                <Filter className="h-4 w-4 mr-2" /> 
+                {activeFilters.role || activeFilters.status ? "Filters Applied" : "Filter"}
               </Button>
               <Button variant="outline" size="sm" onClick={() => toast({ title: "Export", description: "Exporting staff data..." })}>
                 <Download className="h-4 w-4 mr-2" /> Export
@@ -236,6 +278,12 @@ export default function Staff() {
           </Table>
         </div>
       </div>
+      
+      <StaffFilterDialog 
+        open={filterDialogOpen}
+        onOpenChange={setFilterDialogOpen}
+        onFilterApply={handleFilterApply}
+      />
     </div>
   );
 }

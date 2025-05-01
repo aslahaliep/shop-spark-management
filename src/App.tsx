@@ -15,6 +15,7 @@ import CustomerAdd from "./pages/CustomerAdd";
 import CustomerView from "./pages/CustomerView";
 import CustomerEdit from "./pages/CustomerEdit";
 import Staff from "./pages/Staff";
+import StaffAdd from "./pages/StaffAdd";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/customers/view/:id" element={<Layout><CustomerView /></Layout>} />
           <Route path="/customers/edit/:id" element={<Layout><CustomerEdit /></Layout>} />
           <Route path="/staff" element={<Layout><Staff /></Layout>} />
+          <Route path="/staff/add" element={<Layout><StaffAdd /></Layout>} />
           <Route path="/reports" element={<Layout><Reports /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
           <Route path="/profile" element={<Layout><Profile /></Layout>} />
