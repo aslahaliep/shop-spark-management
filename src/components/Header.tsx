@@ -29,12 +29,8 @@ export function Header({ children }: { children?: React.ReactNode }) {
   };
 
   const handleProfile = () => {
-    toast({
-      title: "Profile",
-      description: "Navigating to profile page",
-    });
-    // For demonstration purposes, this would navigate to a profile page
-    // navigate("/profile");
+    // Navigate to profile page
+    navigate("/profile");
   };
 
   const handleLogout = () => {
